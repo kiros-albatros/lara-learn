@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+php artisan migrate --no-interaction
+php artisan route:cache --no-interaction
+php artisan view:cache --no-interaction
+
+exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

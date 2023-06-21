@@ -1,0 +1,49 @@
+FROM php:8.1-fpm  as base
+
+LABEL maintainer="Semin Artem"
+
+ARG WWWGROUP
+ARG NODE_VERSION=16
+ARG POSTGRES_VERSION=14
+
+WORKDIR /srv/cms
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ=UTC
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions
+
+RUN apt-get update \
+    && apt-get install -y gnupg gosu vim curl ca-certificates zip unzip git supervisor libcap2-bin libpng-dev python3 wget libpq-dev \
+    && install-php-extensions pdo pdo_pgsql pgsql gd curl imap mbstring xml zip bcmath intl readline ldap msgpack igbinary redis swoole memcached pcov \
+    && php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && curl -sLS https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarn.gpg >/dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
+    && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && apt-get update \
+    && apt-get install -y yarn \
+    && apt-get install -y postgresql-client-$POSTGRES_VERSION \
+    && apt-get -y autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY ./ /srv/cms
+COPY ./docker/8.1/start-container-prod /usr/local/bin/start-container
+COPY ./docker/8.1/supervisord-prod.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/8.1/supervisord-prod.conf /etc/supervisor/supervisord.conf
+COPY ./docker/8.1/php.ini /usr/local/etc/php/conf.d/php-ini-overrides.ini
+RUN chmod +x /usr/local/bin/start-container
+
+RUN composer dump-autoload -o \
+    && chown -R :www-data /srv/cms \
+    && chmod -R 775 /srv/cms/storage /srv/cms/bootstrap/cache
+
+ENTRYPOINT ["start-container"]

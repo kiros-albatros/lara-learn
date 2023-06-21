@@ -1,0 +1,50 @@
+:root {
+    // Черный и белый
+    --white: #fff;
+    --black: #000;
+
+    // Дополнительные цвета фона
+    --bg: #f2f3f4;
+
+    // Цвета бордюров
+    --border: #d1d1d1;
+    --border-light: #666;
+
+    // Цвета текста
+    --text: #000;
+    --text-light: #999;
+
+    // Главный акцент
+    --primary: #646cfd;
+    --primary-dark: #4d54d1;
+    --primary-darkest: #2e3593;
+    --primary-light: #2279d6;
+    --primary-lightest: #edf5ff;
+
+    // Red color for error messages, alerts, danger actions
+    --red: #ea524a;
+    --red-dark: #d33229;
+    --red-light: #ffbfbf;
+    --red-lightest: #ffece8;
+
+    // Green color for complete messages, prefer actions
+    --green: #53b753;
+    --green-dark: #3f983f;
+    --green-light: #65bf65;
+
+    // Shadows
+    --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+
+    // UI sizes
+    --field-height: 32px;
+
+    // Типографика
+    --h1-font-size: 2.2rem;
+    --h2-font-size: 1.7rem;
+    --h3-font-size: 1.4rem;
+    --h4-font-size: 1.2rem;
+
+    // Разметка
+    --base-width: 1200px;
+    --base-margin: 20px;
+}

@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "lint:js": "eslint resources --ext .ts,.vue",
+        "lint:fix": "eslint resources --ext .ts,.vue --fix"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.54.1",
+        "@typescript-eslint/parser": "^5.54.1",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "@vue/compiler-sfc": "^3.2.47",
+        "@vue/eslint-config-typescript": "^11.0.2",
+        "eslint": "^8.35.0",
+        "eslint-config-prettier": "^8.7.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-vue": "^9.9.0",
+        "prettier": "2.8.4",
+        "sass": "^1.58.3",
+        "typescript": "^4.9.5",
+        "unplugin-auto-import": "^0.15.1",
+        "unplugin-vue-components": "^0.24.1",
+        "vite": "^4.1.4",
+        "vite-plugin-eslint": "^1.8.1",
+        "vite-plugin-laravel": "^0.3.1",
+        "vue-eslint-parser": "^9.1.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.3.0",
+        "@fortawesome/free-regular-svg-icons": "^6.3.0",
+        "@fortawesome/free-solid-svg-icons": "^6.3.0",
+        "@fortawesome/vue-fontawesome": "^3.0.3",
+        "@inertiajs/vue3": "^1.0.2",
+        "element-plus": "^2.2.36",
+        "lodash": "^4.17.21",
+        "ohmyfetch": "^0.4.20",
+        "pinia": "^2.0.33",
+        "vue": "^3.2.47"
+    },
+    "prettier": {
+        "editorconfig": true
+    }
+}

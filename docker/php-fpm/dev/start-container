@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ ! -z "$WWWUSER" ]; then
+    usermod -u $WWWUSER sail
+fi
+
+if [ ! -d /.composer ]; then
+    mkdir /.composer
+fi
+
+chmod -R ugo+rw /.composer
+
+chmod -R gu+w storage
+chmod -R guo+w storage
+php artisan cache:clear
+
+ # Добавляем ip адрес контейнера в xdebug
+sed -i '/client_host/d' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+echo -e "xdebug.client_host=$(ip route show | awk '/default/ {print $ 3}')" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+if [ $# -gt 0 ]; then
+    exec gosu $WWWUSER "$@"
+else
+    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+fi

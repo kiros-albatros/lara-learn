@@ -1,0 +1,32 @@
+deptrac:
+  paths:
+    - ./src
+  exclude_files:
+    - '#.*test.*#'
+  layers:
+    - name: Domain
+      collectors:
+        - type: directory
+          regex: /src/\w+/Domain/.*
+    - name: Application
+      collectors:
+        - type: directory
+          regex: /src/\w+/Application/.*
+    - name: Infrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: directory
+              regex: /src/\w+/Infrastructure/.*
+    - name: Vendor
+      collectors:
+        - type: directory
+          regex: /vendor/.*
+  ruleset:
+    Domain:
+    Application:
+      - Domain
+    Infrastructure:
+      - Domain
+      - Application
+      - Vendor

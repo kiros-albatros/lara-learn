@@ -1,0 +1,279 @@
+@import "normalize.css";
+@import "variables";
+@import "element-plus-styling";
+
+html {
+	height: 100%;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    & > svg:first-child {
+        display: inline-block;
+        margin-right: 8px;
+    }
+    &:hover {
+        color: var(--primary-dark);
+    }
+}
+
+// Основная типографика
+h1, h2, h3, h4, p, ol, ul {
+    margin: 0 0 var(--base-margin);
+    font-weight: normal;
+}
+h1 {
+    font-size: var(--h1-font-size);
+}
+h2 {
+    font-size: var(--h2-font-size);
+}
+h3 {
+    font-size: var(--h3-font-size);
+}
+h4 {
+    font-size: var(--h4-font-size);
+}
+ul > li,
+ol > li {
+    margin-bottom: calc(var(--base-margin) / 2);
+}
+
+// Preloader
+@keyframes button-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+.loading {
+    &:not(.b-form) {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    &.b-form {
+        .g-button {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.5;
+            color: var(--white);
+            &::after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                border: 4px solid transparent;
+                border-top-color: #ffffff;
+                border-radius: 50%;
+                animation: button-spinner 1s ease infinite;
+            }
+        }
+    }
+}
+
+// Таблицы
+.g-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--base-margin);
+    td {
+        padding: 0.8rem;
+        border-bottom: 1px solid var(--border);
+        a {
+            vertical-align: middle;
+        }
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+        p:last-child {
+            margin: 0;
+        }
+        &.nowrap {
+            white-space: nowrap;
+        }
+        &.right {
+            text-align: right;
+        }
+        &.center {
+            text-align: center;
+        }
+    }
+    thead {
+        td {
+            font-weight: bold;
+            & a {
+                color: inherit;
+            }
+            & a:hover {
+                color: var(--primary);
+            }
+            &.asc a,
+            &.desc a {
+                color: var(--primary);
+                &:after {
+                    display: inline-block;
+                    vertical-align: top;
+                    content: "↓";
+                    margin-left: 0.3rem;
+                    font-size: 18px;
+                }
+            }
+            &.desc a:after {
+                content: "↑";
+            }
+        }
+    }
+    &.bordered {
+        th, td {
+            border: 1px solid var(--border);
+        }
+    }
+    &.striped {
+        tbody tr:nth-of-type(odd) {
+            background-color: var(--primary-lightest);
+        }
+    }
+    &.hoverable {
+        tbody tr:hover,
+        tbody tr.hover {
+            background-color: var(--primary-lightest);
+        }
+    }
+}
+
+// Кнопки (напр. <Link class="g-button" />)
+.g-button {
+    display: inline-block;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: var(--field-height);
+    padding: 0 1.5em;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: var(--white);
+    border: 1px var(--primary) solid;
+    &:hover {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+        color: var(--white);
+    }
+    &.outlined {
+        background-color: var(--white);
+        color: var(--primary);
+        &:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+    }
+    & + & {
+        margin-left: 1rem;
+    }
+}
+
+// Строки
+.g-row {
+    display: flex;
+    width: 100%;
+    margin: 0 calc(-1 * var(--base-margin)) var(--base-margin);
+    & > * {
+        padding: 0 var(--base-margin);
+        &.size_1 {
+            width: 8.333%;
+        }
+        &.size_2 {
+            width: 16.666%;
+        }
+        &.size_3 {
+            width: 25%;
+        }
+        &.size_4 {
+            width: 33.333%;
+        }
+        &.size_5 {
+            width: 41.666%;
+        }
+        &.size_6 {
+            width: 50%;
+        }
+        &.size_7 {
+            width: 58.333%;
+        }
+        &.size_8 {
+            width: 66.666%;
+        }
+        &.size_9 {
+            width: 75%;
+        }
+        &.size_10 {
+            width: 83.333%;
+        }
+        &.size_11 {
+            width: 91.666%;
+        }
+        &.size_12 {
+            width: 100%;
+        }
+    }
+    & > .right {
+        margin-left: auto;
+    }
+    & > h1,
+    & > h2,
+    & > a,
+    & > .b-filter {
+        margin: auto 0;
+    }
+}
+
+// Действие-иконка
+.g-actionicon {
+    display: inline-block;
+    cursor: pointer;
+    width: 30px;
+    text-align: center;
+    svg {
+        margin-left: 0;
+        margin-right: 0 !important;
+    }
+    & + & {
+        margin-left: calc(var(--base-margin) / 3);
+    }
+}
+
+// Заглавие страницы
+.g-titlebar {
+    display: flex;
+    margin-bottom: var(--base-margin);
+    & > h1,
+    & > h2,
+    & > p,
+    & > a,
+    & > div {
+        margin: auto 0;
+        &:not(:first-child) {
+            margin-left: var(--base-margin);
+        }
+        &.right {
+            margin-left: auto;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+# @link https://phpstan.org/config-reference
+
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - src/
+    # Level 9 has 5 levels max
+    level: 5
+    ignoreErrors:
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::#'
+        # В моделях явным образом на задаются свойства, они через magic-методы получаются из БД
+        - '#Access to an undefined property [a-zA-Z]+\\(Domain\\)?Models\\[a-zA-Z\d\\]+::#'
+        # Request дополняется в Kernel-классе App\Http\Request классом, и синтаксический анализатор не может найти новые методы
+        - '#Call to an undefined method Illuminate\\Http\\Request\:\:[a-z]+OrNull#'
+        # В ресурсах не задаются свойства, они через magic-методы подтягиваются из класса
+        -
+            message: '#Access to an undefined property [a-zA-Z0-9\\_]+::#'
+            path: src/*/Http/Resources/*
+        # Bug в Larastan https://github.com/nunomaduro/larastan/issues/550
+        - '#Illuminate\\Support\\Collection<\(int\|string\),(.+)>::map\(\) expects#'
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
+#
+#    checkMissingIterableValueType: false

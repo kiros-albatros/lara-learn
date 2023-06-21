@@ -1,0 +1,28 @@
+deptrac:
+  paths:
+    - ./src
+  exclude_files:
+    - '#.*Application/Http/*#'
+    - '#.*Application/Policies/*#'
+  layers:
+    - name: Accounts
+      collectors:
+        - type: directory
+          regex: /src/Accounts/.*
+    - name: Keywords
+      collectors:
+        - type: directory
+          regex: /src/Keywords/.*
+    - name: Pricelists
+      collectors:
+        - type: directory
+          regex: /src/Pricelists/.*
+    - name: Products
+      collectors:
+        - type: directory
+          regex: /src/Products/.*
+    - name: Shops
+      collectors:
+        - type: directory
+          regex: /src/Shops/.*
+  ruleset: ~
